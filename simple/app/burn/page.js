@@ -12,6 +12,12 @@ export default function Burn() {
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+    if (value !== "" && parseFloat(value) === 0) {
+      // If the value is zero, set it to a non-zero value
+      setAmount("1"); 
+    } else {
+      setAmount(value);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -48,18 +54,6 @@ export default function Burn() {
              Burn
             </Button>
           </Card>
-        </Col>
-
-        {/* KPI sidebar */}
-        <Col numColSpanLg={2}>
-          <div className="space-y-6">
-            <Card>
-              <div className="h-24" />
-            </Card>
-            <Card>
-              <div className="h-24" />
-            </Card>
-          </div>
         </Col>
       </Grid>
     </main>

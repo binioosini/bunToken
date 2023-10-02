@@ -5,7 +5,6 @@ import { Card, Text, Button, Icon, Flex, Title, Grid } from "@tremor/react";
 import {
   ListPlus,
   BadgeCheck,
-  ArrowLeftRight,
   Vote,
   Flame,
   MoveRight
@@ -23,18 +22,6 @@ const categories = [
     text: `Burn your Amount of Bun Token`,
     icon: Flame,
     link: '/burn'
-  },
-  {
-    title: "Transfer",
-    text: `Transfer your Amount of Bun Token`,
-    icon: ArrowLeftRight,
-    link: '/transfer'
-  },
-  {
-    title: "Transfer From",
-    text: `Transfer From Acount to another acount your Amount of Bun Token`,
-    icon: ArrowLeftRight,
-    link: '/transferFrom'
   },
   {
     title: "Approve",

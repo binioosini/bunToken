@@ -1,5 +1,4 @@
 'use client'
-
 import { useContract, useContractRead, useAddress } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from "react";
 import { Card, Title, Text, Grid, Col, NumberInput, Button } from "@tremor/react";
@@ -40,37 +39,33 @@ export default function Allowance() {
       <Grid numItemsLg={6} className="gap-6 m-8">
         {/* Main section */}
         <Col numColSpanLg={4}>
-          <Card className="h-auto">
+          <Card className="h-auto w-full">
             <Title>Allowance Dashboard</Title>
             <Text className="mb-4">To see the amount Allowance the spender to spend</Text>
             <NumberInput enableStepper={false}
               name="recipient"
               required
-              placeholder="wallet address"
+              placeholder="Spender wallet address"
               value={spender}
               onChange={handleSpenderChange}
             />
             <Button 
-              onClick={fetchData} // Trigger data fetch when the button is clicked
+              onClick={fetchData}
               className="mt-4"
             >
              See Allowance
             </Button>
           </Card>
         </Col>
-
-        {/* KPI sidebar */}
-        <Col numColSpanLg={2}>
-          <div className="space-y-6">
-            <Card>
-              <div>{data}</div>
-            </Card>
-            <Card>
-              <div className="h-24" />
-            </Card>
-          </div>
-        </Col>
       </Grid>
+
+      {/* Display fetched data in a card */}
+      {data && (
+        <Card className="h-auto w-full mt-8">
+          <Title>Allowance Details</Title>
+          <Text>${spender}: ${data}</Text>
+        </Card>
+      )}
     </main>
   );
 }

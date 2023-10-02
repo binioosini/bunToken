@@ -9,10 +9,21 @@ export default function Approve() {
   const { mutateAsync: approve } = useContractWrite(contract, "approve");
   
   const [amount, setAmount] = useState('');
-  const spender = useAddress();
+  const [spender, setSpender] = useState('');
+  // const spender = useAddress();
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+    if (value !== "" && parseFloat(value) === 0) {
+      // If the value is zero, set it to a non-zero value
+      setAmount("1");
+    } else {
+      setAmount(value);
+    }
+  };
+
+  const handleSpenderChange = (event) => {
+    setSpender(event.target.value);
   };
 
   const handleSubmit = async (event) => {
@@ -34,13 +45,20 @@ export default function Approve() {
       <Grid numItemsLg={6} className="gap-6 m-8">
         {/* Main section */}
         <Col numColSpanLg={4}>
-          <Card className="h-auto">
+         <Card className="h-auto w-auto">
             <Title>Approve Dashboard</Title>
             <Text className="mb-4">Approve the amount you want</Text>
             <NumberInput 
               placeholder="ETH 100"
               value={amount}
               onChange={handleAmountChange}
+            />
+            <NumberInput 
+              enableStepper={false}
+              placeholder="Wallet address"
+              value={spender}
+              onChange={handleSpenderChange}
+              className="mt-4"
             />
             <Button 
             onClick={handleSubmit}
@@ -49,18 +67,6 @@ export default function Approve() {
               Approve
             </Button>
           </Card>
-        </Col>
-
-        {/* KPI sidebar */}
-        <Col numColSpanLg={2}>
-          <div className="space-y-6">
-            <Card>
-              <div className="h-24" />
-            </Card>
-            <Card>
-              <div className="h-24" />
-            </Card>
-          </div>
         </Col>
       </Grid>
     </main>

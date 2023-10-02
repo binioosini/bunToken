@@ -12,6 +12,12 @@ export default function Mint() {
 
   const handleAmountChange = (event) => {
     setAmount(event.target.value);
+    if (value !== "" && parseFloat(value) === 0) {
+      // If the value is zero, set it to a non-zero value
+      setAmount("1");
+    } else {
+      setAmount(value);
+    }
   };
 
   const handleSubmit = async (event) => {
