@@ -1,39 +1,47 @@
 'use client'
-import { useContract, useContractRead, useAddress } from "@thirdweb-dev/react";
+
 import React, { useState, useEffect } from "react";
-import { Card, Title, Text, Grid, Col, NumberInput, Button } from "@tremor/react";
+import { Card, Title, Text, Grid, Col, TextInput, Button } from "@tremor/react";
+import { useContract, useAddress, useContractRead } from "@thirdweb-dev/react";
 
 export default function Allowance() {
-  const { contract } = useContract("0x2aCB1B60BAc2d25144BaF254830E1cA203A9B75C");
+  const contractAddress = "0x2aCB1B60BAc2d25144BaF254830E1cA203A9B75C";
+  const { contract } = useContract(contractAddress);
   const [spender, setSpender] = useState('');
-  const [data, setData] = useState('');
   const owner = useAddress();
+  
+  const functionName = "allowance";
+  
+  const args = [owner, spender];
+  
+  const callOverrides = {
+    blockTag: "latest",
+  };
+
+  const { data, isLoading } = useContractRead(contract, functionName, args, callOverrides);
 
   const handleSpenderChange = (event) => {
     setSpender(event.target.value);
   };
 
-  const fetchData = async () => {
+  const handlePaste = async () => {
     try {
-      const allowance = await useContractRead(contract, "allowance", [owner, spender]);
-      setData(allowance.toString());
-      console.log("Data fetched successfully:", allowance.toString());
+      const text = await navigator.clipboard.readText();
+      setSpender(text);
     } catch (error) {
-      console.error("Data fetch failed:", error);
+      console.error("Error pasting from clipboard:", error);
     }
   };
 
-  useEffect(() => {
-    // Fetch data when the component mounts or when spender or owner changes
-    fetchData();
-  }, [spender, owner]);
-
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Data fetching logic is moved to fetchData function
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+    }
+  }, [spender, owner]);
+  
   return (
     <main>
       <Grid numItemsLg={6} className="gap-6 m-8">
@@ -41,31 +49,34 @@ export default function Allowance() {
         <Col numColSpanLg={4}>
           <Card className="h-auto w-full">
             <Title>Allowance Dashboard</Title>
-            <Text className="mb-4">To see the amount Allowance the spender to spend</Text>
-            <NumberInput enableStepper={false}
+            <Text className="mb-4">To see the amount Allowance the spender can spend</Text>
+            <TextInput
               name="recipient"
               required
-              placeholder="Spender wallet address"
+              placeholder="Paste Spender wallet address"
               value={spender}
               onChange={handleSpenderChange}
             />
-            <Button 
-              onClick={fetchData}
+            <Button
+              onClick={handlePaste}
               className="mt-4"
             >
-             See Allowance
+              Paste Allowance addr
             </Button>
           </Card>
         </Col>
-      </Grid>
-
-      {/* Display fetched data in a card */}
-      {data && (
-        <Card className="h-auto w-full mt-8">
+        {/* Display fetched data in a card */}
+      {isLoading ? (
+        <Card className="h-auto text-center">
+          <Title>Loading...</Title>
+        </Card>
+      ) : (
+        <Card className="h-auto text-center">
           <Title>Allowance Details</Title>
-          <Text>${spender}: ${data}</Text>
+          <Text className="mt-4">{data.toString()} Bun Token</Text>
         </Card>
       )}
+      </Grid>
     </main>
   );
 }

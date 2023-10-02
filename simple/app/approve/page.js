@@ -1,24 +1,36 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
-import { Card, Title, Text, Grid, Col, NumberInput, Button } from "@tremor/react";
-import { useContract, useContractWrite, useAddress } from "@thirdweb-dev/react";
+import {
+  Card,
+  Title,
+  Text,
+  Grid,
+  Col,
+  NumberInput,
+  TextInput,
+  Button,
+} from "@tremor/react";
+import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import TotalSupply from "../components/totalSupply";
+
 
 export default function Approve() {
-  const { contract } = useContract("0x2aCB1B60BAc2d25144BaF254830E1cA203A9B75C");
+  const { contract } = useContract(
+    "0x2aCB1B60BAc2d25144BaF254830E1cA203A9B75C"
+  );
   const { mutateAsync: approve } = useContractWrite(contract, "approve");
-  
-  const [amount, setAmount] = useState('');
-  const [spender, setSpender] = useState('');
-  // const spender = useAddress();
+
+  const [amount, setAmount] = useState("");
+  const [spender, setSpender] = useState("");
 
   const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-    if (value !== "" && parseFloat(value) === 0) {
-      // If the value is zero, set it to a non-zero value
+    const inputValue = event.target.value;
+    setAmount(inputValue);
+    if (inputValue !== "" && parseFloat(inputValue) === 0) {
       setAmount("1");
     } else {
-      setAmount(value);
+      setAmount(inputValue);
     }
   };
 
@@ -30,12 +42,10 @@ export default function Approve() {
     event.preventDefault();
 
     try {
-
       const tx = await approve({ args: [spender, amount] });
 
       console.log("approve transaction hash:", tx.hash);
     } catch (error) {
-      
       console.error("approve failed:", error);
     }
   };
@@ -45,29 +55,39 @@ export default function Approve() {
       <Grid numItemsLg={6} className="gap-6 m-8">
         {/* Main section */}
         <Col numColSpanLg={4}>
-         <Card className="h-auto w-auto">
+          <Card className="h-auto w-auto">
             <Title>Approve Dashboard</Title>
             <Text className="mb-4">Approve the amount you want</Text>
-            <NumberInput 
+            <form onSubmit={handleSubmit}>
+            <NumberInput
               placeholder="ETH 100"
               value={amount}
               onChange={handleAmountChange}
             />
-            <NumberInput 
-              enableStepper={false}
+            <TextInput
               placeholder="Wallet address"
               value={spender}
               onChange={handleSpenderChange}
               className="mt-4"
             />
             <Button 
-            onClick={handleSubmit}
-            className="mt-4"
-            >
+            type="submit"
+            className="mt-4">
               Approve
             </Button>
+            </form>
           </Card>
         </Col>
+
+        {/* KPI sidebar */}
+        <Col numColSpanLg={2}>
+          <div className="space-y-6">
+            <Card>
+              <TotalSupply />
+            </Card>
+          </div>
+        </Col>
+
       </Grid>
     </main>
   );

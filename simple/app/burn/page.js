@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { Card, Title, Text, Grid, Col, NumberInput, Button } from "@tremor/react";
 import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import TotalSupply from "../components/totalSupply";
+
 
 export default function Burn() {
   const { contract } = useContract("0x2aCB1B60BAc2d25144BaF254830E1cA203A9B75C");
@@ -11,12 +13,13 @@ export default function Burn() {
   const [amount, setAmount] = useState('');
 
   const handleAmountChange = (event) => {
-    setAmount(event.target.value);
-    if (value !== "" && parseFloat(value) === 0) {
+    const inputValue = event.target.value;
+    setAmount(inputValue);
+    if (inputValue !== "" && parseFloat(inputValue) === 0) {
       // If the value is zero, set it to a non-zero value
       setAmount("1"); 
     } else {
-      setAmount(value);
+      setAmount(inputValue);
     }
   };
 
@@ -55,6 +58,16 @@ export default function Burn() {
             </Button>
           </Card>
         </Col>
+
+        {/* KPI sidebar */}
+        <Col numColSpanLg={2}>
+          <div className="space-y-6">
+            <Card>
+              <TotalSupply />
+            </Card>
+          </div>
+        </Col>
+
       </Grid>
     </main>
   );
