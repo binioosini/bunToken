@@ -11,9 +11,13 @@ import {
   TextInput,
   Button,
 } from "@tremor/react";
-import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import {
+  useAddress,
+  useContract,
+  useContractWrite,
+} from "@thirdweb-dev/react";
 import TotalSupply from "../components/totalSupply";
-
+import Allowance from "../components/allowance";
 
 export default function Approve() {
   const { contract } = useContract(
@@ -23,6 +27,7 @@ export default function Approve() {
 
   const [amount, setAmount] = useState("");
   const [spender, setSpender] = useState("");
+  const owner = useAddress();
 
   const handleAmountChange = (event) => {
     const inputValue = event.target.value;
@@ -59,35 +64,50 @@ export default function Approve() {
             <Title>Approve Dashboard</Title>
             <Text className="mb-4">Approve the amount you want</Text>
             <form onSubmit={handleSubmit}>
-            <NumberInput
-              placeholder="ETH 100"
-              value={amount}
-              onChange={handleAmountChange}
-            />
-            <TextInput
-              placeholder="Wallet address"
-              value={spender}
-              onChange={handleSpenderChange}
-              className="mt-4"
-            />
-            <Button 
-            type="submit"
-            className="mt-4">
-              Approve
-            </Button>
+              <NumberInput
+                placeholder="ETH 100"
+                value={amount}
+                onChange={handleAmountChange}
+              />
+              <TextInput
+                placeholder="Wallet address"
+                value={spender}
+                onChange={handleSpenderChange}
+                className="mt-4"
+              />
+              <Button type="submit" className="mt-4">
+                Approve
+              </Button>
             </form>
           </Card>
         </Col>
 
         {/* KPI sidebar */}
         <Col numColSpanLg={2}>
-          <div className="space-y-6">
+          <div className="space-y-6 mb-4">
+            
             <Card>
               <TotalSupply />
             </Card>
-          </div>
-        </Col>
 
+          </div>
+          <div>
+          <Card >
+          {
+            spender && (
+              <div className="space-y-6 mb-4">
+                
+                  <Text className="mb-4">
+                    <Allowance owner={owner} spender={spender} />
+                  </Text>
+                
+              </div>
+            )
+          }
+          </Card>
+          </div>
+          
+        </Col>
       </Grid>
     </main>
   );

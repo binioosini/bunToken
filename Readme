@@ -1,0 +1,82 @@
+# Project Name
+
+A Simple ERC20 dapp.
+
+## Table of Contents
+
+- [Project Name](#project-name)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Demo](#demo)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Acknowledgments](#acknowledgments)
+
+## Description
+
+Simple dapp where you can mint and burn, approve the token
+
+## Demo
+
+If applicable, provide a link to a live demo or screenshots of your project in action.
+
+## Getting Started
+
+Instructions on how to get a copy of your project up and running on a local machine.
+
+### Prerequisites
+
+List any software or tools that need to be installed before your project can be used. For example:
+
+- Node.js
+- npm
+
+### Installation
+
+Step-by-step instructions on how to install and configure your project. Make it as clear as possible. For example:
+
+1. Clone the repository:
+
+   ```shell
+   git clone https://github.com/your-username/your-project.git
+   ```
+
+2. Navigate to the project folder:
+
+   ```shell
+   cd your-project
+   ```
+
+3. Install dependencies:
+
+   ```shell
+   npm install
+   ```
+
+## Usage
+
+Provide examples and usage instructions for your project. Include code snippets and any relevant information that users might need to understand how to use your project.
+
+## Contributing
+
+Explain how others can contribute to your project. Include guidelines for code style, issue reporting, and pull requests. For example:
+
+- Fork the repository on GitHub.
+- Create a new branch for your feature or bug fix.
+- Make your changes and submit a pull request.
+
+## License
+
+This project is licensed under the [License Name] - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+If your project uses libraries, tools, or code from others, give credit and mention them here. You can also acknowledge contributors, if any.
+
+---
+
+Feel free to customize this template to suit your project's specific needs. Providing clear and concise documentation in your README can greatly help users and potential contributors understand and use your project effectively.
