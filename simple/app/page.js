@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import { Card, Text, Button, Icon, Flex, Title, Grid } from "@tremor/react";
-
+import { useAddress } from "@thirdweb-dev/react";
 import {
   ListPlus,
   BadgeCheck,
@@ -38,6 +38,18 @@ const categories = [
 ];
 
 export default function Home() {
+  const address = useAddress();
+
+  if(!address) {
+    return (
+      <Card>
+        <Flex h={"50vh"} justifyContent={"center"} alignItems={"center"}>
+          <Title>Please Connect a Wallet</Title>
+        </Flex>
+      </Card>
+    )
+  }
+
   return (
     <Grid numItemsSm={2} className="gap-6 m-8">
       {categories.map((item) => (
