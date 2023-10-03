@@ -2,21 +2,15 @@
 
 A Simple ERC20 dapp.
 
-## Table of Contents
-
-- [Project Name](#project-name)
-  - [Description](#description)
-  - [Demo](#demo)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
 
 ## Description
 
 Simple dapp where you can mint and burn, approve the token
 
 ## Demo
+live Demo :  https://bun-token-ercx.vercel.app/
 
-( https://docs.google.com/document/d/1AvoyqRLv61QJqZJl1m76ZqmcPWWOfO4yK84DZJwaSIo/edit?usp=sharing )
+Docs Demo : ( https://docs.google.com/document/d/1AvoyqRLv61QJqZJl1m76ZqmcPWWOfO4yK84DZJwaSIo/edit?usp=sharing )
 
 
 ### Prerequisites
